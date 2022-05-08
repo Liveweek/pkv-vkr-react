@@ -20,8 +20,7 @@ function TableDictionary({headerNames, data}) {
         <Tbody>
             {data.map((row) =>
                 <Tr>
-                    <Td>{row[0]}</Td>
-                    <Td>{row[1]}</Td>
+                    {row.map((elem) => <Td>{elem}</Td>)}
                 </Tr>
             )}
         </Tbody>

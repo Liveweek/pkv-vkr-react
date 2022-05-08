@@ -32,7 +32,7 @@ import {AiOutlineUser} from 'react-icons/ai'
 const Header = ({moduleName, ...props}) => {
     return (
         <div>
-            <Flex mx='20px' mt='20px'>
+            <Flex mx='20px' my='20px'>
                 <Center>
                     <Menu>
                         <MenuButton
