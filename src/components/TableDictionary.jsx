@@ -9,10 +9,10 @@ import {
     Td
 } from '@chakra-ui/react'
 
-function TableDictionary({headerNames, data}) {
+function TableDictionary({headerNames, data, props}) {
   return (
     <Table>
-        <Thead position="sticky" top={0} bgColor="white">
+        <Thead pt="10px" position="sticky" top={0} bgColor="white">
             <Tr>
                 {headerNames.map((elem) => <Th>{elem}</Th>)}
             </Tr>

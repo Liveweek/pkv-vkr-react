@@ -40,7 +40,7 @@ function ItemPage({itemName}) {
       <Box mx="80px" mt="25px" alignItems="center">
         <Flex>
           <Center>
-            <Heading as='h2' color="blue.800">{itemName}</Heading>
+            <Heading as='h2' color="blue.800">{itemName || "Название товара"}</Heading>
             <IconButton 
               aria-label='More Options' 
               icon={<FiMoreHorizontal/>} 
@@ -62,6 +62,7 @@ function ItemPage({itemName}) {
               border='2px' 
               borderColor='gray.300'
               px='5px'
+              boxShadow="lg"
             >
              <TableDictionary
               headerNames={['Характеристика', 'Значение']}
@@ -85,7 +86,8 @@ function ItemPage({itemName}) {
               borderRadius="xl" 
               border='2px' 
               borderColor='gray.300'
-              p="5px" 
+              p="5px"
+              boxShadow="lg"
             >
               <Text fontSize='lg'>
                 Самый крутой товар на свете, который хотел бы каждый пользователь продукции
@@ -109,6 +111,7 @@ function ItemPage({itemName}) {
               borderColor='gray.300'
               p="5px"
               width="100%"
+              boxShadow="lg"
             >
               {/* Тут должен быть график функции запаса*/}
               <Line 
@@ -117,6 +120,11 @@ function ItemPage({itemName}) {
                   maintainAspectRatio: false,
                   legend: {
                     position: 'right',
+                  },
+                  scales: {
+                    y: {
+                      suggestedMin: 0
+                    }
                   } 
                 }}
                 data={{
@@ -144,6 +152,7 @@ function ItemPage({itemName}) {
               borderColor='gray.300'
               px="5px"
               width="100%"
+              boxShadow="lg"
             >
             <TableDictionary
               headerNames={['Дата', 'Запас на складе на конец дня']}
@@ -182,6 +191,7 @@ function ItemPage({itemName}) {
                 borderColor='gray.300'
                 px="5px"
                 width="100%"
+                boxShadow="lg"
              >
               <TableDictionary
                 headerNames={['Дата','Количество']}
@@ -210,6 +220,7 @@ function ItemPage({itemName}) {
               borderColor='gray.300'
               py="10px"
               width="100%"
+              boxShadow="lg"
              >
               <FormControl ml="15px">
                 <FormLabel>Дата</FormLabel>
@@ -235,6 +246,7 @@ function ItemPage({itemName}) {
             borderRadius='xl'
             borderColor='gray.300'
             height="400px"
+            boxShadow="lg"
           >
             {/* Тут должен быть график ценообразования */}
             <Line

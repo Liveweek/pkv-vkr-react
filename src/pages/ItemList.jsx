@@ -20,6 +20,7 @@ function ItemList() {
                 width="20%"
                 borderRadius="xl"
                 height="100%"
+                boxShadow="lg"
             >
                 <Flex px="12px" flexDirection="column" height="100%">
                     <Center mt="12px">
@@ -89,6 +90,7 @@ function ItemList() {
                     mt="18px"
                     height="89%"
                     pt="7px"
+                    boxShadow="lg"
                 >
                     <TableDictionary
                         headerNames={['Название', 'Производитель', 'Цена', 'Рейтинг']}
