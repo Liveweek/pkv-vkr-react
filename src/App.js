@@ -15,6 +15,10 @@ import SupplyPage from './pages/SupplyPage';
 import ReglamentPage from './pages/ReglamentPage';
 import LoginPage from './pages/LoginPage';
 import NewItemList from './pages/NewItemList';
+import NewItemPage from './pages/NewItemPage';
+import FcstList from './pages/FcstList'
+import FcstPage from './pages/FcstPage';
+
 
 function App() {
 
@@ -31,6 +35,9 @@ function App() {
           <Route path="/sp" element={<SupplyPage/>}/>
           <Route path="/rp" element={<ReglamentPage/>}/>
           <Route path="/nil" element={<NewItemList/>}/>
+          <Route path="/nip" element={<NewItemPage/>}/>
+          <Route path="/fcl" element={<FcstList/>}/>
+          <Route path="/fcp" element={<FcstPage/>}/>
         </Routes>
       </BrowserRouter>
     </Box> /* App */

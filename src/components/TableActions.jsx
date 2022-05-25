@@ -17,7 +17,7 @@ function TableActions({headerNames, data, actions}) {
                     {row.map((elem) => <Td>{elem}</Td>)}
                     <Td>
                         <Flex>
-                            {actions}
+                            {row.length > 0 && actions}
                         </Flex>
                     </Td>
                 </Tr>

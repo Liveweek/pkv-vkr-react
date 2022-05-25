@@ -68,30 +68,52 @@ function ProjectPage() {
         >
             <TableActions
                 headerNames={["Название товара", "Кол-во", "Новый товар"]}
-                data={
-                    [[
-                        "Товар1", 
-                        <NumberInput min={0} defaulValue={0}>
-                            <NumberInputField />
-                            <NumberInputStepper>
-                                <NumberIncrementStepper />
-                                <NumberDecrementStepper />
-                            </NumberInputStepper>
-                        </NumberInput>, 
-                        "Да"
-                    ],
-                    [
-                        "Товар2", 
-                        <NumberInput min={0} defaulValue={0}>
-                            <NumberInputField />
-                            <NumberInputStepper>
-                                <NumberIncrementStepper />
-                                <NumberDecrementStepper />
-                            </NumberInputStepper>
-                        </NumberInput>, 
-                        "Нет"
-                    ]
-                ]
+                data={[[]]
+                //     [[
+                //         "Apple Airpods Pro", 
+                //         <NumberInput min={0} defaulValue={0}>
+                //             <NumberInputField />
+                //             <NumberInputStepper>
+                //                 <NumberIncrementStepper />
+                //                 <NumberDecrementStepper />
+                //             </NumberInputStepper>
+                //         </NumberInput>, 
+                //         "Нет"
+                //     ],
+                //     [
+                //         "Колонка Beats by Dre", 
+                //         <NumberInput min={0} defaulValue={0}>
+                //             <NumberInputField />
+                //             <NumberInputStepper>
+                //                 <NumberIncrementStepper />
+                //                 <NumberDecrementStepper />
+                //             </NumberInputStepper>
+                //         </NumberInput>, 
+                //         "Нет"
+                //     ],
+                //     [
+                //         "Товар2", 
+                //         <NumberInput min={0} defaulValue={0}>
+                //             <NumberInputField />
+                //             <NumberInputStepper>
+                //                 <NumberIncrementStepper />
+                //                 <NumberDecrementStepper />
+                //             </NumberInputStepper>
+                //         </NumberInput>, 
+                //         "Нет"
+                //     ],
+                //     [
+                //         "Товар2", 
+                //         <NumberInput min={0} defaulValue={0}>
+                //             <NumberInputField />
+                //             <NumberInputStepper>
+                //                 <NumberIncrementStepper />
+                //                 <NumberDecrementStepper />
+                //             </NumberInputStepper>
+                //         </NumberInput>, 
+                //         "Нет"
+                //     ]
+                // ]
                 }
                 actions={[
                     <IconButton mr="5px" variant="ghost" icon={<CloseIcon/>} color="red.200"/>
@@ -119,12 +141,12 @@ function ProjectPage() {
         >
             <TableActions
                 headerNames={["Название товара", "Дата начала прогноза", "Дата конца прогноза"]}
-                data={
-                    [[
-                        "Товар1",
-                        "01/02/2022",
-                        "31/02/2022"
-                    ]]
+                data={[[]]
+                    // [[
+                    //     "Товар1",
+                    //     "01/02/2022",
+                    //     "31/02/2022"
+                    // ]]
                 }
                 actions={[
                     <IconButton mr="5px" variant="ghost" icon={<CalendarIcon/>} color="blue.500"/>
