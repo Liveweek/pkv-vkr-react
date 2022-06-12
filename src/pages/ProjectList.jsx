@@ -1,4 +1,4 @@
-import { AddIcon, SearchIcon, SettingsIcon, DownloadIcon, EditIcon, CloseIcon} from '@chakra-ui/icons'
+import { AddIcon, SearchIcon, SettingsIcon, DownloadIcon, EditIcon, CloseIcon, CheckIcon} from '@chakra-ui/icons'
 import { Box, Button, Center, Flex, FormControl, FormLabel, Heading, Input, Select, IconButton } from '@chakra-ui/react'
 import React from 'react'
 import Header from '../components/Header'
@@ -73,8 +73,9 @@ function ProjectList() {
                 }
                 actions={[
                     <IconButton mr="5px" variant="ghost" icon={<DownloadIcon/>} color="blue.200"/>,
-                    <IconButton mr="5px" variant="ghost" icon={<EditIcon/>} color="green.200"/>,
-                    <IconButton mr="5px" variant="ghost" icon={<CloseIcon/>} color="red.200"/>
+                    <IconButton mr="5px" variant="ghost" icon={<EditIcon/>} color="purple.200"/>,
+                    <IconButton mr="5px" variant="ghost" icon={<CloseIcon/>} color="red.200"/>,
+                    <IconButton mr="5px" variant="ghost" icon={<CheckIcon/>} color="green.200"/>
                 ]}
             />
         </Box>
