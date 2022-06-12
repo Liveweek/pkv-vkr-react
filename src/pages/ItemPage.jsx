@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, { useMemo } from 'react'
+import {useState} from 'react'
 import { Heading, Box, IconButton, Flex, Center, Spacer, Text, FormControl, FormLabel, Input, Button} from '@chakra-ui/react';
 import { FiMoreHorizontal } from 'react-icons/fi'
 
@@ -33,7 +33,57 @@ ChartJS.register(
 );
 
 function ItemPage({itemName}) {
+  
+  {
+    /* TODO: реализовать систему рассчёта модели управления запасами 
+      - Вынести все захаркоденные в компоненты данные в начало тела функции для инициализации;
+      - Подключить хуки для обработки кнопки и значений из полей ввода;
+      - Вытащить данные даты на проверку текущего месяца и получить данные о выбранном в поле дне месяца;
+      - Прибавить по выбранному дню количество поставки;
+    */
+  }
+  /* Текущие дни месяца */
   let currentMonthDates = Array.from({length: 28}, (_, i) => i + 1);
+  let currentMonthBeginDate = new Date(2022, 1, 1);
+  const [currentYear, currentMonth] = [currentMonthBeginDate.getFullYear(), currentMonthBeginDate.getMonth()]
+  const J0 = 40;  
+  /* Hooks */
+  /* Спрос по дням */
+  const [demand, setDemand] = useState(Array.from({length: 28}, (_, i) => 1));
+  /* Поставки по дням */
+  const [supply, setSupply] = useState(Array.from({length: 28}, (_, i) => 0));
+
+  /* Запасы на текущий месяц*/
+  const currentMonthStorage = useMemo(() => {
+    let result = Array.from({length: 28}, (_, i) => 0);
+
+    let newRes = [...result];
+
+    for (let i=0; i<28; i += 1) {
+      if (i === 0) {
+        newRes[0] = J0 + supply[i] - demand[i];
+      } else {
+        newRes[i] = newRes[i - 1] + supply[i] - demand[i];
+      } 
+    }
+
+    return newRes;
+  }, [demand, supply]);
+  // const [currentMonthStorage, setCurMonthStorage] = useState(Array.from({length: 28}, (_, i) => i + 10).sort().reverse());
+  /* Табличное представление запасов */
+  const storageTableView = useMemo(
+    () => currentMonthDates.map((elem) => [new Date(currentYear, currentMonth, elem).toLocaleDateString(), currentMonthStorage[elem - 1]]),
+    [currentMonthStorage] 
+  );
+  /* Поставки */
+  const [supplyInfo, setSupplyInfo] = useState([]);
+  /* Состояние поля ввода */
+  const [supplyInfoInput, setSupplyInfoInput] = useState({
+    date: new Date(2022, 1, 1),
+    supplyCount: 0
+  })
+
+
   return (
       <div>
       <Header moduleName={"Товары магазина"}/>
@@ -130,7 +180,7 @@ function ItemPage({itemName}) {
                 data={{
                   labels: currentMonthDates,
                   datasets:[{
-                    data: currentMonthDates.map((elem) => faker.datatype.number({min:0, max:20})),
+                    data: currentMonthStorage,
                     label:'Запас товара на складе',
                     borderColor: 'rgb(0,0,255)',
                     backgroundColor: 'rgba(0,0,255,0.2)',
@@ -156,22 +206,9 @@ function ItemPage({itemName}) {
             >
             <TableDictionary
               headerNames={['Дата', 'Запас на складе на конец дня']}
-              data={[
-                ['01/02/2022', 10],
-                ['02/02/2022', 8],
-                ['03/02/2022', 8],
-                ['04/02/2022', 6],
-                ['05/02/2022', 5],
-                ['06/02/2022', 5],
-                ['07/02/2022', 5],
-                ['08/02/2022', 4],
-                ['09/02/2022', 14],
-                ['10/02/2022', 14],
-                ['11/02/2022', 10],
-                ['12/02/2022', 8],
-                ['13/02/2022', 9],
-                ['14/02/2022', 10]
-              ]}
+              data={
+                storageTableView
+              }
             />
             </Box>
           </Flex>
@@ -195,11 +232,7 @@ function ItemPage({itemName}) {
              >
               <TableDictionary
                 headerNames={['Дата','Количество']}
-                data={[
-                  ['01/02/2021', 5],
-                  ['15/02/2021', 5],
-                  ['20/02/2021', 5],
-               ]}
+                data={supplyInfo}
               />
              </Box> {/* Поставки в магазин */}
              <Spacer/>
@@ -218,13 +251,46 @@ function ItemPage({itemName}) {
              >
               <FormControl ml="15px">
                 <FormLabel>Дата</FormLabel>
-                <Input id='order_date' type='date' width='300px'/>
+                <Input id='order_date' type='date' width='300px' 
+                  onChange={(e) => {
+                    setSupplyInfoInput({...supplyInfoInput, date: new Date(Date.parse(e.target.value))});
+                  }}
+                />
               </FormControl>
               <FormControl ml="15px" mt='10px'>
                 <FormLabel>Количество</FormLabel>
-                <Input id='order_cnt' type='number' width='300px' min={0}/>
+                <Input id='order_cnt' type='number' width='300px' min={0}
+                  onChange={(e) => {
+                    setSupplyInfoInput({...supplyInfoInput, supplyCount: e.target.value})
+                   }
+                  }
+                />
               </FormControl>
-              <Button ml="15px" mt='10px' colorScheme="teal" variant='solid'>Добавить</Button>
+              <Button 
+                ml="15px"
+                mt='10px'
+                colorScheme="teal"
+                variant='solid'
+                onClick={() => {
+
+                    let dateMonth = supplyInfoInput.date.getMonth();
+                    let dateYear = supplyInfoInput.date.getFullYear();
+                    if (dateMonth === currentMonth && dateYear === currentYear) {
+                      setSupplyInfo([...supplyInfo, [supplyInfoInput.date.toLocaleDateString(), supplyInfoInput.supplyCount]]);
+
+                      let dateDay = supplyInfoInput.date.getDate();
+                      setSupply(() => {
+                        let sup_copy = [...supply];
+                        sup_copy[dateDay - 1] += parseInt(supplyInfoInput.supplyCount);
+                        return sup_copy;
+                      })
+                    }
+
+                  }
+                }
+              >
+                Добавить
+              </Button>
              </Box> {/* Форма ввода доп поставок */}
            </Flex>
         </Box> {/* Информация о поставках товаров на склад */}
